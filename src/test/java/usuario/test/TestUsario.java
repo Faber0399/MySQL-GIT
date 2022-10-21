@@ -16,20 +16,23 @@ public class TestUsario {
                 conexion.setAutoCommit(false);
             }
             PeliculaDao peliculaDao= new PeliculaDao(conexion);
-            Pelicula pelicula1 = new Pelicula("Rambo",135, "Accion", "Rambo es una popular saga de películas de acción protagonizadas por Sylvester Stallone");
-            peliculaDao.insertar(pelicula1);
+            Pelicula pelicula1 = new Pelicula(1,"Rambo",135, "Accion", "Rambo es una popular saga de películas de acción protagonizadas por Sylvester Stallone",1);
+            //Pelicula pelicula2=new Pelicula(1);
+            //peliculaDao.actualizar(pelicula1);
+           // peliculaDao.eliminar(pelicula2);
+           
 
-            /* UsuarioDao usuarioDao = new UsuarioDao(conexion);
+            UsuarioDao usuarioDao = new UsuarioDao(conexion);
             Usuario usuario = new Usuario(1,"Farid10","Rodriguez","Calle 4A 6-30","contrasena","farid10");
             Usuario usuario2=new Usuario(2);
             //usuarioDao.insertar(usuario);
             //usuarioDao.actualizar(usuario);
             //usuarioDao.eliminar(usuario2);
-            List<Usuario> miarreglo=new ArrayList();
-            miarreglo = usuarioDao.seleccionar();
-            for (Usuario usuario1 : miarreglo){
-                System.out.println(usuario1);
-            }   */
+            List<Pelicula> miarreglo=new ArrayList();
+            miarreglo = peliculaDao.seleccionar();
+            for (Pelicula pelicula : miarreglo){
+                System.out.println(pelicula);
+            }  
             conexion.commit();
         } catch (SQLException e) {
             e.printStackTrace();

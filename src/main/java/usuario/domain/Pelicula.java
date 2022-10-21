@@ -6,6 +6,7 @@ public class Pelicula {
     private int duracion;
     private String genero;
     private String descripcion;
+    private int actualizarId;
     
     public Pelicula(int idNombrePelicula) {
         this.idNombrePelicula = idNombrePelicula;
@@ -24,6 +25,17 @@ public class Pelicula {
         this.duracion = duracion;
         this.genero = genero;
         this.descripcion = descripcion;
+    }
+    
+
+    public Pelicula(int idNombrePelicula, String nombrePelicula, int duracion, String genero, String descripcion,
+            int actualizarId) {
+        this.idNombrePelicula = idNombrePelicula;
+        NombrePelicula = nombrePelicula;
+        this.duracion = duracion;
+        this.genero = genero;
+        this.descripcion = descripcion;
+        this.actualizarId = actualizarId;
     }
 
     public int getIdNombrePelicula() {
@@ -70,6 +82,14 @@ public class Pelicula {
     public String toString() {
         return "pelicula [idNombrePelicula=" + idNombrePelicula + ", NombrePelicula=" + NombrePelicula + ", duracion="
                 + duracion + ", genero=" + genero + ", descripcion=" + descripcion + "]";
+    }
+
+    public int getActualizarId() {
+        return actualizarId;
+    }
+
+    public void setActualizarId(int actualizarId) {
+        this.actualizarId = actualizarId;
     }
     
     

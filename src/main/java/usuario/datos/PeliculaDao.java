@@ -7,8 +7,8 @@ import usuario.domain.Pelicula;
 public class PeliculaDao {
         private static final String SQL_SELECT_PEL = "SELECT * FROM peliculas.peliculas;";
         private static final String SQL_INSERT_PEL = "INSERT INTO peliculas.peliculas (nombre_pelicula,duracion,genero,descripcion) VALUES (?,?,?,?)";
-        private static final String SQL_UPDATED_PEL = "UPDATE peliculas.peliculas SET nombre_pelicula=?,duracion=?,genero=?,descripcion=? WHERE idnombrepelicula=?";
-        private static final String SQL_DELETE_PEL = "DELETE FROM peliculas.pelicula WHERE idnombrepelicula=?";
+        private static final String SQL_UPDATED_PEL = "UPDATE peliculas.peliculas SET idnombrepelicula=?, nombre_pelicula=?,duracion=?,genero=?,descripcion=? WHERE nombre_pelicula=?";
+        private static final String SQL_DELETE_PEL = "DELETE FROM peliculas.peliculas WHERE idnombrepelicula=?";
         private Connection ConexionTransaccional;
         public PeliculaDao() {
         }
@@ -85,11 +85,12 @@ public class PeliculaDao {
             try {
                 conn = this.ConexionTransaccional!=null ? this.ConexionTransaccional: Conexion.getConnection();
                 stmt = conn.prepareStatement(SQL_UPDATED_PEL);
-                stmt.setString(1, pelicula.getNombrePelicula());
-                stmt.setInt(2, pelicula.getDuracion());
-                stmt.setString(3, pelicula.getGenero());
-                stmt.setString(4, pelicula.getDescripcion());
-                stmt.setInt(5, pelicula.getIdNombrePelicula());
+                stmt.setInt(1, pelicula.getActualizarId());
+                stmt.setString(2, pelicula.getNombrePelicula());
+                stmt.setInt(3, pelicula.getDuracion());
+                stmt.setString(4, pelicula.getGenero());
+                stmt.setString(5, pelicula.getDescripcion());
+                stmt.setString(6, pelicula.getNombrePelicula());
                 registro=stmt.executeUpdate();
             } finally{
                 try {
