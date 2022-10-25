@@ -24,10 +24,10 @@ public class TestUsario {
 
             UsuarioDao usuarioDao = new UsuarioDao(conexion);
             Usuario usuario = new Usuario(1,"Farid10","Rodriguez","Calle 4A 6-30","contrasena","farid10");
-            Usuario usuario2=new Usuario(2);
+            Usuario usuario2=new Usuario(6);
             //usuarioDao.insertar(usuario);
             //usuarioDao.actualizar(usuario);
-            //usuarioDao.eliminar(usuario2);
+            usuarioDao.eliminar(usuario2);
             List<Pelicula> miarreglo=new ArrayList();
             miarreglo = peliculaDao.seleccionar();
             for (Pelicula pelicula : miarreglo){
