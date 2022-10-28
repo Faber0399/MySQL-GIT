@@ -14,7 +14,6 @@ public class UsuarioTest {
         boolean valor;
         String contrasena;
         String nameUsuario;
-        int flag = 0;
         int idUsuario = -1;
         List<Usuario> miarreglo = new ArrayList();
         Scanner sc = new Scanner(System.in);
@@ -24,7 +23,7 @@ public class UsuarioTest {
             if (conexion.getAutoCommit()) {
                 conexion.setAutoCommit(false);
             }
-            PeliculaDao pelicula = new PeliculaDao(conexion);
+            PeliculaDao peliculaDao = new PeliculaDao(conexion);
             UsuarioDao usuario = new UsuarioDao(conexion);
             while (eleccion != 0) {
                 System.out.println(
@@ -59,7 +58,7 @@ public class UsuarioTest {
                     } while (nameUsuario.isEmpty());
                     Usuario usuario1 = new Usuario(firstName, lastName, address, contrasena, nameUsuario);
                     usuario.insertar(usuario1);
-                    conexion.commit();
+                    
                 }
                 if (eleccion == 2) {
                     do {
@@ -77,23 +76,49 @@ public class UsuarioTest {
                         if (usuario1.getNameUsuario().equals(nameUsuario)
                                 && usuario1.getContrasena().equals(contrasena)) {
                             System.out.println(
-                                    "Muchas gracias " + usuario1.getFirstName() + " por ingresar a nuestro portal");
+                                    "Muchas gracias " + usuario1.getFirstName() + " por ingresar a nuestro portal.\n ");
                             idUsuario = usuario1.getId_usuario();
-                            System.out.print(
-                                    "Por favor selecciona tu proxima accion: \n 1.- Ingresar pelicula \n 2.- Buscar pelicula \n 3.- Revisar peliculas agregadas \n 4.- Eliminar pelicula \n 0.- Salir \n --> ");
-                            eleccion = sc.nextInt();
                             
-                            break;
+                            while(eleccion!=0){
+                                System.out.print(
+                                    "Por favor selecciona tu proxima accion: \n 1.- Ingresar pelicula \n 2.- Buscar pelicula \n 3.- Revisar peliculas agregadas \n 4.- Eliminar pelicula \n 0.- Salir  \n--> ");
+                            eleccion = sc.nextInt();
+                            sc.nextLine();
+                            switch(eleccion)
+                            {
+                                case 1:
+                                    System.out.print("Nombre Pelicula: ");
+                                    String nombrePelicula= sc.nextLine();
+                                    System.out.print("Duracion en (min): ");
+                                    int duracion=sc.nextInt();
+                                    sc.nextLine();
+                                    System.out.print("Genero: ");
+                                    String genero=sc.nextLine();
+                                    System.out.print("Descripcion: ");
+                                    String descripcion=sc.nextLine();
+                                    Pelicula pelicula=new Pelicula(nombrePelicula, duracion, genero, descripcion, idUsuario);
+                                    peliculaDao.insertar(pelicula);
+                                    break;
+                                case 2:
+                                    List<Pelicula> miarreglo1=new ArrayList();
+                                    System.out.print("Por favor digita el nombre de la pelicula que desea buscar: ");
+                                    String nombrePelicula1=sc.nextLine();
+                                    miarreglo1 = peliculaDao.seleccionarBuscar(nombrePelicula1,idUsuario);
+                                    for(Pelicula pelicula1: miarreglo1){
+                                        System.out.println(pelicula1);
+                                    }
+
+                            }
+                            continue;}
                         }
                         if (miarreglo.size() == i) {
                             System.out.println(
                                     "Error en el campo de usuario o contraseña, por favor vuelve a intentarlo");
                         }
                     }
-
                 }
-
             }
+            conexion.commit();
             sc.close();
         } catch (SQLException e) {
             e.printStackTrace();

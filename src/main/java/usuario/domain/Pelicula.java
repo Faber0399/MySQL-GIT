@@ -7,16 +7,18 @@ public class Pelicula {
     private String genero;
     private String descripcion;
     private int actualizarId;
+    private int idUsuario;
     
     public Pelicula(int idNombrePelicula) {
         this.idNombrePelicula = idNombrePelicula;
     }
 
-    public Pelicula(String nombrePelicula, int duracion, String genero, String descripcion) {
+    public Pelicula(String nombrePelicula, int duracion, String genero, String descripcion,int idUsuario) {
         NombrePelicula = nombrePelicula;
         this.duracion = duracion;
         this.genero = genero;
         this.descripcion = descripcion;
+        this.idUsuario=idUsuario;
     }
 
     public Pelicula(int idNombrePelicula, String nombrePelicula, int duracion, String genero, String descripcion) {
@@ -76,6 +78,14 @@ public class Pelicula {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @Override
