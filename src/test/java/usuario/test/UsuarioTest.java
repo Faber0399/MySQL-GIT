@@ -1,5 +1,6 @@
 package usuario.test;
 
+import java.io.UTFDataFormatException;
 import java.sql.*;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -84,6 +85,7 @@ public class UsuarioTest {
                                     "Por favor selecciona tu proxima accion: \n 1.- Ingresar pelicula \n 2.- Buscar pelicula \n 3.- Revisar peliculas agregadas \n 4.- Eliminar pelicula \n 0.- Salir  \n--> ");
                             eleccion = sc.nextInt();
                             sc.nextLine();
+                            List<Pelicula> miarreglo1=new ArrayList();
                             switch(eleccion)
                             {
                                 case 1:
@@ -98,15 +100,24 @@ public class UsuarioTest {
                                     String descripcion=sc.nextLine();
                                     Pelicula pelicula=new Pelicula(nombrePelicula, duracion, genero, descripcion, idUsuario);
                                     peliculaDao.insertar(pelicula);
+                                    conexion.commit();
                                     break;
                                 case 2:
-                                    List<Pelicula> miarreglo1=new ArrayList();
+                                    
                                     System.out.print("Por favor digita el nombre de la pelicula que desea buscar: ");
                                     String nombrePelicula1=sc.nextLine();
                                     miarreglo1 = peliculaDao.seleccionarBuscar(nombrePelicula1,idUsuario);
                                     for(Pelicula pelicula1: miarreglo1){
                                         System.out.println(pelicula1);
                                     }
+                                    break;
+                                case 3:
+                                System.out.println("Peliculas agregadas: ");
+                                    miarreglo1=peliculaDao.seleccionar(idUsuario);
+                                    for(Pelicula pelicula1: miarreglo1){
+                                        System.out.println(pelicula1);
+                                    }
+                                    break;
 
                             }
                             continue;}

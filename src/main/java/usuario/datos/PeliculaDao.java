@@ -5,7 +5,7 @@ import java.util.*;
 import usuario.domain.Pelicula;
 
 public class PeliculaDao {
-        private static final String SQL_SELECT_PEL = "SELECT * FROM peliculas.peliculas;";
+        private static final String SQL_SELECT_PEL = "SELECT * FROM peliculas.peliculas WHERE idusuario=?;";
         private static final String SQL_SELECT_PELB = "SELECT * FROM peliculas.peliculas WHERE nombre_pelicula=? AND idusuario=?";
         private static final String SQL_INSERT_PEL = "INSERT INTO peliculas.peliculas (nombre_pelicula,duracion,genero,descripcion,idusuario) VALUES (?,?,?,?,?)";
         private static final String SQL_UPDATED_PEL = "UPDATE peliculas.peliculas SET idnombrepelicula=?, nombre_pelicula=?,duracion=?,genero=?,descripcion=? WHERE nombre_pelicula=?";
@@ -16,7 +16,7 @@ public class PeliculaDao {
         public PeliculaDao(Connection conexionTransaccional) {
             ConexionTransaccional = conexionTransaccional;
         }
-        public List<Pelicula> seleccionar() throws SQLException {
+        public List<Pelicula> seleccionar(int id) throws SQLException {
             Connection conn = null;
             PreparedStatement stmt = null;
             ResultSet rs = null;
@@ -24,6 +24,7 @@ public class PeliculaDao {
             try {
                 conn = this.ConexionTransaccional!=null ? this.ConexionTransaccional: Conexion.getConnection();
                 stmt = conn.prepareStatement(SQL_SELECT_PEL);
+                stmt.setInt(1, id);
                 rs = stmt.executeQuery();
                 while (rs.next()) {
                     int idNombrePelicula = rs.getInt("idnombrepelicula");
